@@ -22,7 +22,7 @@ namespace PortfolioRiskReturn.Models
             return price_variance_vector;
         }
 
-        private Matrix<double> GenerateCoverianceMatrix(List<double[]> list_of_prices)
+        public Matrix<double> GenerateCoverianceMatrix(List<double[]> list_of_prices)
         {
             var prices_vectors = new Vector<double>[list_of_prices.Count];
             list_of_prices.ForEach(

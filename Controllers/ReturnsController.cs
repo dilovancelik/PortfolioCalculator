@@ -14,10 +14,11 @@ namespace PortfolioRiskReturn.Controllers
     [Route("[controller]")]
     public class ReturnsController : Controller
     {
-
         [HttpPost]
         public ActionResult<string> Post(List<SecuritiesData> portfolio)
         {
+            var helper_functions = new Models.HelperFunctions();
+
             var returns = new List<double> {};
             var values = new List<double> {};
 
@@ -27,26 +28,13 @@ namespace PortfolioRiskReturn.Controllers
                 values.Add(security.Amount * security.Prices.Last());
             }
             var returns_vector = Vector<double>.Build.DenseOfArray(returns.ToArray());
-            var weights_vector = GeneratePortfolioWeights(values);
+            var weights_vector = helper_functions.GeneratePortfolioWeights(values);
 
             var portfolio_returns = weights_vector
                 .ToRowMatrix()
                 .Multiply(returns_vector);
                 
             return portfolio_returns.ToString();
-        }
-
-        public Vector<double> GeneratePortfolioWeights(List<double> values)
-        {
-            var total_portfolio_value = values.Sum();
-            var weights = new List<double> {};
-            values.ForEach(
-                value => 
-                weights.Add(value / total_portfolio_value)
-            );
-
-            var weights_vector = Vector<double>.Build.DenseOfArray(weights.ToArray());
-            return weights_vector;
         }
 
     }
