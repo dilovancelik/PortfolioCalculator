@@ -6,7 +6,7 @@ The portfolio calculations are done using linear algebra.
 
 ## Installation
 
-The project is build using .NET core 3.0, if you have it installed, you can run the api with the following commands 
+The project is build using [.NET core 3.0](https://dotnet.microsoft.com/download), if you have it installed, you can run the api with the following commands 
 ```bash
 dotnet restore
 dotnet build
